@@ -1,0 +1,19 @@
+class DailyScorecardsController < ApplicationController
+  DailyScorecard = Struct.new(:date)
+  service(:clock) { Time.zone }
+  service(:daily_scorecards) { DailyScorecard }
+
+  template_attr :daily_scorecard
+
+  def today
+    date = clock.now
+    redirect_to daily_scorecard_path(year: date.year, month: date.month,
+                                     day: date.day)
+  end
+
+  def show
+    date = clock.local(params[:year], params[:month], params[:day])
+    self.daily_scorecard = daily_scorecards.new(date: date)
+    render
+  end
+end
