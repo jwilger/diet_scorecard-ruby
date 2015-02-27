@@ -38,6 +38,7 @@ class ApplicationController < ActionController::Base
   module HasTemplateAttrs
     def template_attr(*names)
       attr_accessor *names
+      helper_method *names
       private *names.map { |name| "#{name}=" }
     end
   end

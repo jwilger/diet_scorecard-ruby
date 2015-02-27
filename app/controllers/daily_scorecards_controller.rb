@@ -1,7 +1,6 @@
 class DailyScorecardsController < ApplicationController
-  DailyScorecard = Struct.new(:date)
   service(:clock) { Time.zone }
-  service(:daily_scorecards) { DailyScorecard }
+  service(:daily_scorecards) { DietScorecard::DailyScorecard }
 
   template_attr :daily_scorecard
 
