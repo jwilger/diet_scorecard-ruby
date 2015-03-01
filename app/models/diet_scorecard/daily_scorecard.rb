@@ -6,5 +6,9 @@ module DietScorecard
     def initialize(date:)
       self.date = date.to_date
     end
+
+    def total_points
+      0
+    end
   end
 end

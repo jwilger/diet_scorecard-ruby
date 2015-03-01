@@ -23,3 +23,4 @@ en:
   daily_scorecards:
     show:
       scorecard_for: "Daily Scorecard for %{date}"
+      total_points: "Total Points"

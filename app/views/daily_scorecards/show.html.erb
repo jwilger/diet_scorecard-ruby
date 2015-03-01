@@ -1,1 +1,16 @@
 <h1><%=t '.scorecard_for', date: l(daily_scorecard.date) %></h1>
+
+<div class="row">
+  <div class="col-md-4">
+    <h2>Summary</h2>
+    <table class="table table-striped">
+      <tr>
+        <th><%=t '.total_points' %></th>
+        <td><%= daily_scorecard.total_points %></td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-8">
+    <h2>Meals</h2>
+  </div>
+</div>
