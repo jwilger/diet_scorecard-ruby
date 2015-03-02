@@ -1,5 +1,15 @@
 module DietScorecard
   class FoodType
+    class << self
+      def fetch(key)
+        BY_KEY.fetch(key)
+      end
+
+      def list
+        ALL.sort
+      end
+    end
+
     include Comparable
 
     attr_accessor :key
@@ -54,5 +64,29 @@ module DietScorecard
       end
       @score_table = new_value
     end
+
+    ALL = [
+      FoodType.new(:fruits, score_table: [2,2,2,1,0,0]),
+      FoodType.new(:vegetables, score_table: [2,2,2,1,0,0]),
+      FoodType.new(:lean_meats, score_table: [2,2,1,0,0,-1]),
+      FoodType.new(:nuts, score_table: [2,2,1,0,0,-1]),
+      FoodType.new(:whole_grains, score_table: [2,2,1,0,0,-1]),
+      FoodType.new(:dairy, score_table: [1,1,1,0,-1,-2]),
+      FoodType.new(:refined_grains, score_table: [-1,-1,-2]),
+      FoodType.new(:sweets, score_table: [-2]),
+      FoodType.new(:fried_foods, score_table: [-2]),
+      FoodType.new(:fatty_protiens, score_table: [-1, -1, -2]),
+      FoodType.new(:dark_chocolate, score_table: [0,-2]),
+      FoodType.new(:alcohol, score_table: [0,-1,-2]),
+      FoodType.new(:condiments, score_table: [-1])
+    ]
+
+    BY_KEY = ALL.reduce({}) { |map, ft|
+      map.tap do |m|
+        m[ft.key] = ft
+      end
+    }
+
+    private_constant :ALL, :BY_KEY
   end
 end
