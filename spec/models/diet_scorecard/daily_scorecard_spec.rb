@@ -22,6 +22,15 @@ describe DietScorecard::DailyScorecard do
       eq({:year => '2013', :month => '6', :day => '11'})
   end
 
+  it 'had a food type scorecard for each foodtype' do
+    DietScorecard::FoodType.each do |food_type|
+      result = subject.food_type_scorecards.detect { |ftsc|
+        ftsc.food_type == food_type
+      }
+      expect(result).to be_present
+    end
+  end
+
   context 'when instantiated with a Time object for date' do
     let(:the_date) { Time.local(2014,10,13,14,21,33) }
 

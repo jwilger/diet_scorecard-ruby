@@ -32,3 +32,17 @@ en:
       summary_heading: "Summary"
       today_link: 'Today'
       total_points: "Total Points"
+  food_type:
+    fruits: "Fruits"
+    vegetables: "Vegetable"
+    lean_meats: "Lean Meats and Eggs"
+    nuts: "Nuts and Seeds"
+    whole_grains: "Whole Grains"
+    dairy: "Dairy"
+    refined_grains: "Refined Grains"
+    sweets: "Sweets"
+    fried_foods: "Fried Foods"
+    fatty_protiens: "Fatty Proteins"
+    dark_chocolate: "Dark (>= 80%) Chocolate"
+    alcohol: "Alcoholic Beverages"
+    condiments: "Condiments"

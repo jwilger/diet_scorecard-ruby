@@ -1,3 +1,6 @@
+require_relative 'food_type'
+require_relative 'food_type_scorecard'
+
 module DietScorecard
   class DailyScorecard
     attr_accessor :date
@@ -12,7 +15,7 @@ module DietScorecard
     end
 
     def food_type_scorecards
-      []
+      FoodType.map { |ft| FoodTypeScoreCard.new(food_type: ft, date: date) }
     end
 
     def previous

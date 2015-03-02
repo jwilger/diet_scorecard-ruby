@@ -1,12 +1,18 @@
 module DietScorecard
   class FoodType
     class << self
-      def fetch(key)
-        BY_KEY.fetch(key)
+      include Enumerable
+
+      def each(&block)
+        list.each(&block)
       end
 
       def list
         ALL.sort
+      end
+
+      def fetch(key)
+        BY_KEY.fetch(key)
       end
     end
 
