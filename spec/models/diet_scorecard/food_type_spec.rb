@@ -4,13 +4,8 @@ describe DietScorecard::FoodType do
   let(:score_table) {[2,2,1,1,0,-1]}
 
   subject {
-    described_class.new(:sauce, name: 'Awesome Sauces',
-                        score_table: score_table)
+    described_class.new(:sauce, score_table: score_table)
   }
-
-  it 'has a name' do
-    expect(subject.name).to eq 'Awesome Sauces'
-  end
 
   it 'has a key' do
     expect(subject.key).to eq :sauce
@@ -46,7 +41,7 @@ describe DietScorecard::FoodType do
 
   it 'requires the point value of servings to be in descending order' do
     expect {
-      described_class.new(:wev, name: 'something', score_table: [2,2,0,1])
+      described_class.new(:wev, score_table: [2,2,0,1])
     }.to raise_error(ArgumentError, "score_table must be in strictly descending order")
   end
 
@@ -56,7 +51,7 @@ describe DietScorecard::FoodType do
 
   it 'also has an immutable points table' do
     score_table = [2,1,0]
-    x = described_class.new(:thing, name: 'Foo', score_table: score_table)
+    x = described_class.new(:thing, score_table: score_table)
     score_table.reverse!
     expect(x.points_for_serving(1)).to eq 2
     expect(x.points_for_serving(2)).to eq 1
@@ -78,25 +73,25 @@ describe DietScorecard::FoodType do
   end
 
   context 'sorting different food types' do
-    it 'sorts food types with identical score tables by name' do
-      sauce = described_class.new(:sauce, name: 'Sauce', score_table: score_table)
-      beans = described_class.new(:beans, name: 'Beans', score_table: score_table)
-      junk = described_class.new(:junk, name: 'Junk', score_table: score_table)
+    it 'sorts food types with identical score tables by key' do
+      sauce = described_class.new(:sauce, score_table: score_table)
+      beans = described_class.new(:beans, score_table: score_table)
+      junk = described_class.new(:junk, score_table: score_table)
       
       expect([sauce, beans, junk].sort).to eq [beans, junk, sauce]
     end
 
-    it 'the food with the highest average non-negative serving score sorts highest' do
-      score_a = [2,2,2,2,1,0] # 1.5
-      score_b = [2,2,2,2,0,0] # 1.333
-      score_c = [2,2,1,0,-1,-1] # 1.25
-      score_d = [2,2,1,1,1,0] # 0.875
-      score_e = [1,1,1,0,0,-1] # 0.6
-      score_f = [0,0,-1,-1,-2,-2] # 0
-      score_g = [-1,-1,-1,-1,-1,-2] # 0
-      score_h = [-1,-1,-1,-1,-1,-1] # 0
+    it 'sorts by the highest mean score for six servings' do
+      score_a = [2,2,2,2,1,0]
+      score_b = [2,2,2,2,0,0]
+      score_c = [2,2,1,1,1,0]
+      score_d = [2,2,1,0,-1,-1]
+      score_e = [1,1,1,0,0,-1]
+      score_f = [0,0,-1,-1,-2,-2]
+      score_g = [-1,-1,-1,-1,-1,-1]
+      score_h = [-1,-1,-1,-1,-1,-2]
 
-      food_typer = ->(l, s) { described_class.new(l, name: l.to_s, score_table: s) }
+      food_typer = ->(l, s) { described_class.new(l, score_table: s) }
 
       a = food_typer.(:a, score_a)
       b = food_typer.(:b, score_b)

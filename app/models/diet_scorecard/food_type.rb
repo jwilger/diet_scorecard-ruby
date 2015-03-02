@@ -2,29 +2,25 @@ module DietScorecard
   class FoodType
     include Comparable
 
-    attr_accessor :key, :name
-    private :key=, :name=
+    attr_accessor :key
+    private :key=
 
-    def initialize(key, name:, score_table:)
+    def initialize(key, score_table:)
       self.key = key
-      self.name = name
       self.score_table = score_table.dup.tap { |st| st.freeze }
       freeze
     end
 
     def <=>(other)
-      result = -(mean_nonnegative_score <=> other.mean_nonnegative_score)
-      if result == 0
-        return name <=> other.name
-      end
-      result
+      return key <=> other.key if mean_score == other.mean_score
+      -(mean_score <=> other.mean_score)
     end
 
-    def mean_nonnegative_score
-      non_negatives = score_table.select { |points| points >= 0 }
-      sum = non_negatives.reduce(0) { |total, points| total + points }
-      return 0 if sum == 0
-      sum.to_f / non_negatives.size.to_f
+    def mean_score
+      total = (1..6).to_a.reduce(0) { |total, serving|
+        total + points_for_serving(serving)
+      }
+      total / 6.0
     end
 
     def points_for_serving(serving_number)
