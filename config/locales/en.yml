@@ -34,7 +34,7 @@ en:
       total_points: "Total Points"
   food_type:
     fruits: "Fruits"
-    vegetables: "Vegetable"
+    vegetables: "Vegetables"
     lean_meats: "Lean Meats and Eggs"
     nuts: "Nuts and Seeds"
     whole_grains: "Whole Grains"
@@ -43,6 +43,6 @@ en:
     sweets: "Sweets"
     fried_foods: "Fried Foods"
     fatty_protiens: "Fatty Proteins"
-    dark_chocolate: "Dark (>= 80%) Chocolate"
+    dark_chocolate: "Dark Chocolate (1 square)"
     alcohol: "Alcoholic Beverages"
     condiments: "Condiments"

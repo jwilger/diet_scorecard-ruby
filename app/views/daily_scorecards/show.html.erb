@@ -10,6 +10,7 @@
 
 <div class="row">
   <div class="col-md-4">
+    <h2><%=t '.total_points' %>: <%= daily_scorecard.total_points %></h2>
     <h2><%=t '.summary_heading' %></h2>
     <table class="table table-striped">
       <tr>
@@ -19,11 +20,6 @@
         <th><%=t '.points_earned_heading' %></th>
       </tr>
       <%= render partial: 'food_type_scorecard', collection: daily_scorecard.food_type_scorecards %>
-      <tr class="info">
-        <td colspan="2"></td>
-        <th><%=t '.total_points' %></th>
-        <td><%= daily_scorecard.total_points %></td>
-      </tr>
     </table>
   </div>
   <div class="col-md-8">
