@@ -76,4 +76,38 @@ describe DietScorecard::FoodType do
       expect(subject.recommended_servings).to eq 2..4
     end
   end
+
+  context 'sorting different food types' do
+    it 'sorts food types with identical score tables by name' do
+      sauce = described_class.new(:sauce, name: 'Sauce', score_table: score_table)
+      beans = described_class.new(:beans, name: 'Beans', score_table: score_table)
+      junk = described_class.new(:junk, name: 'Junk', score_table: score_table)
+      
+      expect([sauce, beans, junk].sort).to eq [beans, junk, sauce]
+    end
+
+    it 'the food with the highest average non-negative serving score sorts highest' do
+      score_a = [2,2,2,2,1,0] # 1.5
+      score_b = [2,2,2,2,0,0] # 1.333
+      score_c = [2,2,1,0,-1,-1] # 1.25
+      score_d = [2,2,1,1,1,0] # 0.875
+      score_e = [1,1,1,0,0,-1] # 0.6
+      score_f = [0,0,-1,-1,-2,-2] # 0
+      score_g = [-1,-1,-1,-1,-1,-2] # 0
+      score_h = [-1,-1,-1,-1,-1,-1] # 0
+
+      food_typer = ->(l, s) { described_class.new(l, name: l.to_s, score_table: s) }
+
+      a = food_typer.(:a, score_a)
+      b = food_typer.(:b, score_b)
+      c = food_typer.(:c, score_c)
+      d = food_typer.(:d, score_d)
+      e = food_typer.(:e, score_e)
+      f = food_typer.(:f, score_f)
+      g = food_typer.(:g, score_g)
+      h = food_typer.(:h, score_h)
+
+      expect([b,d,f,h,g,e,c,a].sort).to eq [a,b,c,d,e,f,g,h]
+    end
+  end
 end
