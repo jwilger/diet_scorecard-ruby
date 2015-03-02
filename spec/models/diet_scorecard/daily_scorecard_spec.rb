@@ -3,10 +3,23 @@ require_relative '../../../app/models/diet_scorecard/daily_scorecard'
 describe DietScorecard::DailyScorecard do
   subject { described_class.new(date: the_date) }
 
-  let(:the_date) { Time.now.to_date }
+  let(:the_date) { Date.new(2013,6,11) }
 
   it 'knows the date with which it was created' do
     expect(subject.date).to eq the_date
+  end
+
+  it 'can return the previous scorecard' do
+    expect(subject.previous.date).to eq Date.new(2013,6,10)
+  end
+
+  it 'can return the next scorecard' do
+    expect(subject.next.date).to eq Date.new(2013,6,12)
+  end
+
+  it 'can convert itself to params for Rails URL helpers' do
+    expect(subject.to_param).to \
+      eq({:year => '2013', :month => '6', :day => '11'})
   end
 
   context 'when instantiated with a Time object for date' do

@@ -14,5 +14,17 @@ module DietScorecard
     def food_type_scorecards
       []
     end
+
+    def previous
+      self.class.new(date: date - 1)
+    end
+
+    def next
+      self.class.new(date: date + 1)
+    end
+
+    def to_param
+      {:year => date.year.to_s, :month => date.month.to_s, :day => date.day.to_s}
+    end
   end
 end

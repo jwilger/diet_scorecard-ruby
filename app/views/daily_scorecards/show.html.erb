@@ -1,5 +1,13 @@
 <h1><%=t '.scorecard_for', date: l(daily_scorecard.date) %></h1>
 
+<nav>
+  <ul class="pager">
+    <li><%= link_to t('.previous_day_link'), daily_scorecard_path(daily_scorecard.previous.to_param), class: 'previous' %></li>
+    <li><%= link_to t('.today_link'), daily_scorecard_today_path %></li>
+    <li><%= link_to t('.next_day_link'), daily_scorecard_path(daily_scorecard.next.to_param), class: 'next' %></li>
+  </ul>
+</nav>
+
 <div class="row">
   <div class="col-md-4">
     <h2><%=t '.summary_heading' %></h2>

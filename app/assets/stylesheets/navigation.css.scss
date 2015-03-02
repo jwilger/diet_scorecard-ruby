@@ -1,0 +1,7 @@
+ul.pager a.previous::before {
+  content: "\00ab\00a0"
+}
+
+ul.pager a.next::after {
+  content: "\00a0\00bb"
+}

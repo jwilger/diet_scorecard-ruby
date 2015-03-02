@@ -23,9 +23,12 @@ en:
   daily_scorecards:
     show:
       meals_heading: "Meals"
+      next_day_link: 'Next Day'
       points_earned_heading: "Points Earned"
+      previous_day_link: 'Previous Day'
       scorecard_for: "Daily Scorecard for %{date}"
       servings_consumed_heading: "Servings Consumed"
       servings_recomended_heading: "Recomended Servings"
       summary_heading: "Summary"
+      today_link: 'Today'
       total_points: "Total Points"
