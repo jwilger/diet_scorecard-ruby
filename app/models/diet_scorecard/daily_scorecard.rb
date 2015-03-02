@@ -10,5 +10,9 @@ module DietScorecard
     def total_points
       0
     end
+
+    def food_type_scorecards
+      []
+    end
   end
 end
