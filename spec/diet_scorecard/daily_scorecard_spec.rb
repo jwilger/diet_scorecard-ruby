@@ -1,4 +1,4 @@
-require_relative '../../../app/models/diet_scorecard/daily_scorecard'
+require 'diet_scorecard/daily_scorecard'
 
 describe DietScorecard::DailyScorecard do
   subject { described_class.new(date: the_date) }

@@ -1,6 +1,10 @@
 class DailyScorecardsController < ApplicationController
   service(:clock) { Time.zone }
-  service(:daily_scorecards) { DietScorecard::DailyScorecard }
+
+  service(:daily_scorecards) {
+    require 'diet_scorecard/daily_scorecard'
+    DietScorecard::DailyScorecard
+  }
 
   template_attr :daily_scorecard
 

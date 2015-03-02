@@ -1,4 +1,4 @@
-require_relative '../../../app/models/diet_scorecard/food_type_scorecard'
+require 'diet_scorecard/food_type_scorecard'
 
 describe DietScorecard::FoodTypeScoreCard do
   let(:food_type) { double(:food_type, key: :some_stuff) }

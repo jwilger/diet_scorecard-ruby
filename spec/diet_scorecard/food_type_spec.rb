@@ -1,4 +1,4 @@
-require_relative '../../../app/models/diet_scorecard/food_type'
+require 'diet_scorecard/food_type'
 
 describe DietScorecard::FoodType do
   let(:score_table) {[2,2,1,1,0,-1]}
