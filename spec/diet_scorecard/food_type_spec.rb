@@ -35,8 +35,16 @@ describe DietScorecard::FoodType do
     expect(subject.minimum_servings).to eq 2
   end
 
-  it 'recommends a maximum serving of the last serving with a non-zero point value' do
-    expect(subject.maximum_servings).to eq 4
+  it 'recommends a maximum serving of the last serving with a non-negative point value' do
+    expect(subject.maximum_servings).to eq 5
+  end
+
+  context 'when the highest defined serving is worth zero points' do
+    let(:score_table) { [1,0] }
+
+    it 'recommends a maximum serving of INFINITY' do
+      expect(subject.maximum_servings).to eq Float::INFINITY
+    end
   end
 
   context 'when a food has no positive point values' do
@@ -66,18 +74,8 @@ describe DietScorecard::FoodType do
     expect(x.points_for_serving(3)).to eq 0
   end
 
-  context 'when the minimum and maximum servings are the same' do
-    let(:score_table) { [1,1,1,0,-1,-1] }
-
-    it 'recommends a range with a single value' do
-      expect(subject.recommended_servings).to eq 3
-    end
-  end
-
-  context 'when the minimum and maximum servings are different' do
-    it 'recommends a range form the minimum to the maximum serving' do
-      expect(subject.recommended_servings).to eq 2..4
-    end
+  it 'recommends a range from the minimum to the maximum serving' do
+    expect(subject.recommended_servings).to eq 2..5
   end
 
   context 'sorting different food types' do

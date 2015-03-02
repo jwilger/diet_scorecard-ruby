@@ -1,4 +1,6 @@
 class DailyScorecardsController < ApplicationController
+  helper :food_type
+
   service(:clock) { Time.zone }
 
   service(:daily_scorecards) {

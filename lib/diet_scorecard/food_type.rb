@@ -53,11 +53,11 @@ module DietScorecard
     end
 
     def maximum_servings
-      score_table.select{ |points| points > 0 }.size
+      return Float::INFINITY if score_table.last == 0
+      score_table.select{ |points| points >= 0 }.size
     end
 
     def recommended_servings
-      return minimum_servings if minimum_servings == maximum_servings
       minimum_servings..maximum_servings
     end
 

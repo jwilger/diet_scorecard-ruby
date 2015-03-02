@@ -15,7 +15,7 @@ module DietScorecard
     def servings_consumed
     end
 
-    def servings_recomended
+    def servings_recommended
       food_type.recommended_servings
     end
 
