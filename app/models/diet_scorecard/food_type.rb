@@ -47,8 +47,9 @@ module DietScorecard
       score_table[serving_number - 1]
     end
 
-    def minumum_servings
-      score_table.each_with_index.max.last + 1
+    def minimum_servings
+      return 0 if positive_score_table.empty?
+      positive_score_table.each_with_index.max.last + 1
     end
 
     def maximum_servings
@@ -56,8 +57,8 @@ module DietScorecard
     end
 
     def recommended_servings
-      return minumum_servings if minumum_servings == maximum_servings
-      minumum_servings..maximum_servings
+      return minimum_servings if minimum_servings == maximum_servings
+      minimum_servings..maximum_servings
     end
 
     private
@@ -69,6 +70,10 @@ module DietScorecard
         raise ArgumentError, "score_table must be in strictly descending order"
       end
       @score_table = new_value
+    end
+
+    def positive_score_table
+      score_table.select { |points| points > 0 }
     end
 
     ALL = [

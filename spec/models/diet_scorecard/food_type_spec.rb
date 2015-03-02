@@ -32,11 +32,19 @@ describe DietScorecard::FoodType do
   end
 
   it 'recommends a minimum serving of the last serving with the highest point value' do
-    expect(subject.minumum_servings).to eq 2
+    expect(subject.minimum_servings).to eq 2
   end
 
   it 'recommends a maximum serving of the last serving with a non-zero point value' do
     expect(subject.maximum_servings).to eq 4
+  end
+
+  context 'when a food has no positive point values' do
+    let(:score_table) { [0] }
+
+    it 'recommends a minimum of 0 servings' do
+      expect(subject.minimum_servings).to eq 0
+    end
   end
 
   it 'requires the point value of servings to be in descending order' do
