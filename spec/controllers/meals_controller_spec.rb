@@ -16,8 +16,13 @@ describe MealsController do
     let(:meals_service) { double(:meals_service, new: meal) }
     let(:meal) { double(:meal) }
 
+    let(:current_user) { double(:current_user, time_zone: Time.zone) }
+
     before(:each) do
-      controller.load_services(meals: meals_service)
+      controller.load_services(
+        meals: meals_service,
+        current_user: current_user
+      )
       get :new, year: year, month: month, day: day
     end
 
@@ -34,7 +39,8 @@ describe MealsController do
     end
 
     it 'builds a new Meal object with the date from the URL params' do
-      expect(meals_service).to have_received(:new).with(date: date)
+      expect(meals_service).to have_received(:new) \
+        .with(consumed_at: date.beginning_of_day)
     end
 
     it 'assigns the Meal object to the template' do

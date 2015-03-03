@@ -4,8 +4,9 @@ class MealsController < ApplicationController
   template_attr :meal
 
   def new
-    self.meal = meals.new(date: Date.new(params[:year].to_i, params[:month].to_i,
-                                         params[:day].to_i))
+    meal_time = Date.new(params[:year].to_i, params[:month].to_i,
+                         params[:day].to_i).beginning_of_day
+    self.meal = meals.new(consumed_at: meal_time)
     render
   end
 end
