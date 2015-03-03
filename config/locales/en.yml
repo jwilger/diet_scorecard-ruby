@@ -22,8 +22,10 @@
 en:
   daily_scorecards:
     show:
+      add_meal_button: "Add Meal"
       meals_heading: "Meals"
       next_day_link: 'Next Day'
+      new_meal_header: 'Add New Meal'
       points_earned_heading: "Points Earned"
       previous_day_link: 'Previous Day'
       scorecard_for: "Daily Scorecard for %{date}"
