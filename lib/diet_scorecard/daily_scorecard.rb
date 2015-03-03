@@ -11,7 +11,9 @@ module DietScorecard
     end
 
     def total_points
-      0
+      food_type_scorecards.reduce(0) { |total, fts|
+        total += fts.points_earned
+      }
     end
 
     def food_type_scorecards
