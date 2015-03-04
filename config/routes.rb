@@ -7,8 +7,8 @@ Rails.application.routes.draw do
     constraints: { :year => /\d+/, :month => /\d\d?/, :day => /\d\d?/ }
 
   scope '/:year/:month/:day' do
-    resources :meals, only: [:new, :index]
+    resources :meals, only: [:new, :create, :index]
   end
 
-  resources :meals, except: [:new, :index]
+  resources :meals, except: [:new, :create, :index]
 end
