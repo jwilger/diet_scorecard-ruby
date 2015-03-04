@@ -15,13 +15,20 @@ describe DietScorecard::FoodTypeScoreCard do
 
   let(:score_table) {[2,2,1,0,-1,-2]}
 
+  let(:date) { Date.new(2013,12,22) }
+
   subject {
-    described_class.new(food_type: food_type, date: Date.new(2013,12,22),
+    described_class.new(food_type: food_type, date: date,
                         meals_service: meals_service)
   }
 
   it 'has a food_type_key that matches its food_type' do
     expect(subject.food_type_key).to eq :some_stuff
+  end
+
+  it 'used the meals recorded on the specified date' do
+    subject.points_earned
+    expect(meals_service).to have_received(:for_date).with(date)
   end
 
   it 'calculates the total servings of a food type consumed on the date' do

@@ -8,6 +8,8 @@ class DailyScorecardsController < ApplicationController
     DietScorecard::DailyScorecard
   }
 
+  service(:meals) { Meal }
+
   template_attr :daily_scorecard
 
   def today
@@ -18,7 +20,10 @@ class DailyScorecardsController < ApplicationController
 
   def show
     date = clock.local(params[:year], params[:month], params[:day])
-    self.daily_scorecard = daily_scorecards.new(date: date)
+    self.daily_scorecard = daily_scorecards.new(
+      date: date,
+      meals_service: meals.for_user_id(current_user.id)
+    )
     render
   end
 end

@@ -3,7 +3,7 @@ module DietScorecard
     attr_accessor :food_type, :date
     private :food_type=, :date=
 
-    def initialize(food_type:, date:, meals_service: Meal)
+    def initialize(food_type:, date:, meals_service:)
       self.food_type = food_type
       self.date = date
       self.meals_service = meals_service

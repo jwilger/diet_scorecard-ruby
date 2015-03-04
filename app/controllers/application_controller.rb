@@ -52,6 +52,10 @@ class ApplicationController < ActionController::Base
   # authentication yet.
   module TemporaryUserHack
     class User
+      def id
+        1
+      end
+
       def time_zone
         'PST8PDT'
       end

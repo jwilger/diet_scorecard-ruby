@@ -1,9 +1,13 @@
 require 'diet_scorecard/daily_scorecard'
 
 describe DietScorecard::DailyScorecard do
-  subject { described_class.new(date: the_date) }
+  subject {
+    described_class.new(date: the_date, meals_service: meals_service)
+  }
 
   let(:the_date) { Date.new(2013,6,11) }
+
+  let(:meals_service) { double(:meals_service, for_date: []) }
 
   it 'knows the date with which it was created' do
     expect(subject.date).to eq the_date

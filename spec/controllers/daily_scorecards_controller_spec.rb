@@ -30,7 +30,7 @@ describe DailyScorecardsController do
       double(:daily_scorecard_service, new: :the_daily_scorecard)
     }
 
-    let(:current_user) { double(:current_user, time_zone: Time.zone) }
+    let(:current_user) { double(:current_user, time_zone: Time.zone, id: 42) }
 
     let(:the_date) { Time.zone.local(2005,7,27) }
 
@@ -38,10 +38,14 @@ describe DailyScorecardsController do
     let(:month) { the_date.month.to_s }
     let(:day) { the_date.day.to_s }
 
+    let(:meals_service) { double(:meals_service, for_user_id: scoped_meals_service) }
+    let(:scoped_meals_service) { double(:scoped_meals_service) }
+
     before(:each) do
       controller.load_services(
         daily_scorecards: daily_scorecard_service,
-        current_user: current_user
+        current_user: current_user,
+        meals: meals_service
       )
       get :show, year: year, month: month, day: day
     end
@@ -65,7 +69,11 @@ describe DailyScorecardsController do
 
     it 'builds a DailyScorecard for the specified date' do
       expect(daily_scorecard_service).to have_received(:new) \
-        .with(date: the_date)
+        .with(date: the_date, meals_service: scoped_meals_service)
+    end
+
+    it 'scopes the meals service down to the current user' do
+      expect(meals_service).to have_received(:for_user_id).with(current_user.id)
     end
 
     it 'exposes the DailyScorecard to the template' do

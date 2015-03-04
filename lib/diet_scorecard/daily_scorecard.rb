@@ -6,8 +6,9 @@ module DietScorecard
     attr_accessor :date
     private :date=
 
-    def initialize(date:)
+    def initialize(date:, meals_service:)
       self.date = date.to_date
+      self.meals_service = meals_service
     end
 
     def total_points
@@ -17,19 +18,26 @@ module DietScorecard
     end
 
     def food_type_scorecards
-      FoodType.map { |ft| FoodTypeScoreCard.new(food_type: ft, date: date) }
+      FoodType.map { |ft|
+        FoodTypeScoreCard.new(food_type: ft, date: date,
+                              meals_service: meals_service)
+      }
     end
 
     def previous
-      self.class.new(date: date - 1)
+      self.class.new(date: date - 1, meals_service: meals_service)
     end
 
     def next
-      self.class.new(date: date + 1)
+      self.class.new(date: date + 1, meals_service: meals_service)
     end
 
     def to_param
       {:year => date.year.to_s, :month => date.month.to_s, :day => date.day.to_s}
     end
+
+    private
+
+    attr_accessor :meals_service
   end
 end
