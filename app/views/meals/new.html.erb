@@ -1,11 +1,30 @@
+<%
+def form_error_classes(errors)
+  if errors.any?
+    'has-error has-feedback'
+  else
+    ''
+  end
+end
+%>
 <h1><%=t '.new_meal_header' %></h1>
+
+<% if meal.errors.any? %>
+  <div class="alert alert-danger" roler="alert">
+    <%=t '.validation_errors_present' %>
+  </div>
+<% end %>
 
 <div class="form-horizontal">
 <%= form_for meal do |f| %>
-  <div class="form-group">
+  <div class="form-group <%= form_error_classes(meal.errors[:name]) %>">
     <%= f.label :name, class: 'col-sm-2 control-label' %>
     <div class="col-sm-10">
       <%= f.text_field :name, class: 'form-control' %>
+      <% if meal.errors[:name].any? %>
+        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+        <span class="help-block"><%= meal.errors[:name].join(', ') %></span>
+      <% end %>
     </div>
   </div>
 
@@ -20,7 +39,7 @@
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <%= f.submit t('.create_meal'), class: 'btn btn-primary' %>
-      <%= link_to t('cancel_button'), :back, class: 'btn btn-default' %>
+      <%= link_to t('cancel_button'), daily_scorecard_path(daily_scorecard_path_params), class: 'btn btn-default' %>
     </div>
   </div>
 <% end %>

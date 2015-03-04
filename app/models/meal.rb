@@ -9,4 +9,7 @@ class Meal < ActiveRecord::Base
       where(user_id: user_id)
     end
   end
+
+  validates :name, presence: true
+  validates :consumed_at, presence: true
 end
