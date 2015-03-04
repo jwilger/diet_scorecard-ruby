@@ -22,6 +22,10 @@
 en:
   cancel_button: 'Cancel'
   daily_scorecards:
+    meal:
+      add_food_button: "Add Food to Meal"
+      consumed_at: "@ %{time}"
+      delete_meal_button: "Delete Meal"
     show:
       add_meal_button: "Add Meal"
       meals_heading: "Meals"
@@ -53,3 +57,6 @@ en:
     new:
       create_meal: 'Create Meal'
       new_meal_header: "Add New Meal"
+  time:
+    formats:
+      time: "%l:%M %P"

@@ -6,9 +6,12 @@ describe DietScorecard::FoodTypeScoreCard do
     DietScorecard::FoodType.new(:some_stuff, score_table: score_table)
   }
 
-  let(:meals_service) { double(:meals_service, for_date: meals) }
+  let(:meals_service) { double(:meals_service) }
+  let(:meal_scorecards_service) {
+    double(:meal_scorecards_service, for_date: meal_scorecards)
+  }
 
-  let(:meals) {[meal_a, meal_b]}
+  let(:meal_scorecards) {[meal_a, meal_b]}
 
   let(:meal_a) { double(:meal_a, total_servings: 0) }
   let(:meal_b) { double(:meal_b, total_servings: 0) }
@@ -19,16 +22,18 @@ describe DietScorecard::FoodTypeScoreCard do
 
   subject {
     described_class.new(food_type: food_type, date: date,
-                        meals_service: meals_service)
+                        meals_service: meals_service,
+                        meal_scorecards_service: meal_scorecards_service)
   }
 
   it 'has a food_type_key that matches its food_type' do
     expect(subject.food_type_key).to eq :some_stuff
   end
 
-  it 'used the meals recorded on the specified date' do
+  it 'uses the meals recorded on the specified date' do
     subject.points_earned
-    expect(meals_service).to have_received(:for_date).with(date)
+    expect(meal_scorecards_service).to have_received(:for_date) \
+      .with(date, meals_service: meals_service)
   end
 
   it 'calculates the total servings of a food type consumed on the date' do

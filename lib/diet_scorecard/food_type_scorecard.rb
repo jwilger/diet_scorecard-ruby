@@ -1,12 +1,16 @@
+require 'diet_scorecard/meal_scorecard'
+
 module DietScorecard
   class FoodTypeScoreCard
     attr_accessor :food_type, :date
     private :food_type=, :date=
 
-    def initialize(food_type:, date:, meals_service:)
+    def initialize(food_type:, date:, meals_service:,
+                   meal_scorecards_service: MealScorecard)
       self.food_type = food_type
       self.date = date
       self.meals_service = meals_service
+      self.meal_scorecards_service = meal_scorecards_service
     end
 
     def food_type_key
@@ -32,10 +36,10 @@ module DietScorecard
 
     private
 
-    attr_accessor :meals_service
+    attr_accessor :meals_service, :meal_scorecards_service
 
     def meals
-      meals_service.for_date(date)
+      meal_scorecards_service.for_date(date, meals_service: meals_service)
     end
   end
 end

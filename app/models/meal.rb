@@ -12,4 +12,6 @@ class Meal < ActiveRecord::Base
 
   validates :name, presence: true
   validates :consumed_at, presence: true
+
+  has_many :foods
 end

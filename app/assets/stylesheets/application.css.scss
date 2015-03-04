@@ -16,3 +16,7 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+ form.button_to {
+   display: inline;
+ }

@@ -36,6 +36,10 @@ module DietScorecard
       {:year => date.year.to_s, :month => date.month.to_s, :day => date.day.to_s}
     end
 
+    def meals
+      meals_service.for_date(date).order(:consumed_at)
+    end
+
     private
 
     attr_accessor :meals_service

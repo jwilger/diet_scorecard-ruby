@@ -10,5 +10,7 @@ Rails.application.routes.draw do
     resources :meals, only: [:new, :create, :index]
   end
 
-  resources :meals, except: [:new, :create, :index]
+  resources :meals, except: [:new, :create, :index] do
+    resources :foods
+  end
 end
