@@ -6,10 +6,19 @@ describe MealsController do
   let(:month) { date.month.to_s }
   let(:day) { date.day.to_s }
 
-  let(:consumed_at) { Time.zone.now }
+  let(:consumed_at) { date.to_time }
 
-  let(:meals_service) { double(:meals_service, new: meal, create: meal) }
-  let(:meal) { double(:meal, valid?: meal_is_valid, consumed_at: consumed_at) }
+  let(:meals_service) {
+    double(:meals_service, for_user_id: users_meals, new: meal, create: meal)
+  }
+
+  let(:users_meals) { double(:users_meals, destroy: meal) }
+
+  let(:meal) {
+    double(:meal, valid?: meal_is_valid, consumed_at: consumed_at,
+           name: 'Lunchies')
+  }
+
   let(:meal_is_valid) { true }
 
   let(:current_user) { double(:current_user, time_zone: Time.zone, id: 42) }
@@ -106,6 +115,35 @@ describe MealsController do
       it 'responds with a 422 status' do
         expect(response.status).to eq 422
       end
+    end
+  end
+
+  context 'DELETE /meals/:id' do
+    before(:each) do
+      delete :destroy, id: '5'
+    end
+
+    it 'routes to the destroy action' do
+      expect(delete: '/meals/5').to \
+        route_to(controller: 'meals', action: 'destroy', id: '5')
+    end
+
+    it 'only looks for meals belonging to the current user' do
+      expect(meals_service).to have_received(:for_user_id) \
+        .with(current_user.id)
+    end
+
+    it 'deletes the meal' do
+      expect(users_meals).to have_received(:destroy).with('5')
+    end
+
+    it 'redirects the user to the daily scorecard page for the meal date' do
+      expect(response).to \
+        redirect_to daily_scorecard_path(year: year, month: month, day: day)
+    end
+
+    it 'sets the flash message that the meal was deleted' do
+      expect(flash[:notice]).to eq [{key: '.meal_deleted', meal_name: meal.name}]
     end
   end
 end

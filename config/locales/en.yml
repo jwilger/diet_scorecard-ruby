@@ -20,6 +20,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  application:
+    notice:
+      meal_deleted: "The meal, '%{meal_name}', has been removed."
   cancel_button: 'Cancel'
   daily_scorecards:
     meal:

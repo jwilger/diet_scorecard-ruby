@@ -22,6 +22,12 @@ class MealsController < ApplicationController
     end
   end
 
+  def destroy
+    self.meal = meals.for_user_id(current_user.id).destroy(params[:id])
+    flash[:notice] = [{key: '.meal_deleted', meal_name: meal.name}]
+    redirect_to daily_scorecard_path(date_params_from(meal.consumed_at))
+  end
+
   private
 
   def date_params_from(date)

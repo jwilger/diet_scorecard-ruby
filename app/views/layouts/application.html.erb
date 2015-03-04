@@ -8,6 +8,7 @@
 </head>
 <body>
   <div class="container">
+    <%= render partial: 'notice', collection: Array.wrap(flash[:notice]) %>
     <%= yield %>
   </div>
 </body>
