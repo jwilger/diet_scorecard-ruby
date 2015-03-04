@@ -20,6 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  cancel_button: 'Cancel'
   daily_scorecards:
     show:
       add_meal_button: "Add Meal"
@@ -48,3 +49,7 @@ en:
     dark_chocolate: "Dark Chocolate (1 square)"
     alcohol: "Alcoholic Beverages"
     condiments: "Condiments"
+  meals:
+    new:
+      create_meal: 'Create Meal'
+      new_meal_header: "Add New Meal"
