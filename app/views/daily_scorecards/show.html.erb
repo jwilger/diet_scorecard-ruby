@@ -27,7 +27,7 @@
     <h2>
       <%=t '.meals_heading' %>
       <%= link_to(t('.add_meal_button'), new_meal_path(daily_scorecard.to_param),
-        class: 'btn btn-default') %>
+        class: 'btn btn-success btn-xs') %>
     </h2>
     <div id="daily_scorecard_meals" class="row">
       <%= render partial: 'meal', collection: daily_scorecard.meals %>
