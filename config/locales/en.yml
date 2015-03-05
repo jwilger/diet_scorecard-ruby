@@ -61,7 +61,10 @@ en:
   meals:
     new:
       create_meal: 'Create Meal'
-      new_meal_header: "Add New Meal"
+      new_meal_header: "Add New Meal for %{date}"
+      meal_name_placeholder: 'Enter name of meal'
+      validation_errors_present: "Oops! We weren't able to save that due to a problem with the information you entered."
   time:
     formats:
       time: "%l:%M %P"
+      short_date_only: '%m/%d/%Y'
