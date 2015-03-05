@@ -29,6 +29,8 @@ en:
       add_food_button: "Add Food to Meal"
       consumed_at: "@ %{time}"
       delete_meal_button: "Delete Meal"
+      delete_food_button: 'delete'
+      edit_food_button: 'edit'
     show:
       add_meal_button: "Add Meal"
       meals_heading: "Meals"

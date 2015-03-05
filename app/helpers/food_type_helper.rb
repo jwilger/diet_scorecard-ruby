@@ -1,4 +1,10 @@
+require_dependency 'diet_scorecard/food_type'
+
 module FoodTypeHelper
+  def food_types
+    DietScorecard::FoodType
+  end
+
   def formatted_serving_recomendation(value)
     return '-' if value.min == 0 && value.max == 0
     return 'unlimited' if value.min == 0 && value.max == Float::INFINITY
