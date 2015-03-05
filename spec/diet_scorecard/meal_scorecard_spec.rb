@@ -19,13 +19,16 @@ describe DietScorecard::MealScorecard do
 
   subject { described_class.new(meal: meal) }
 
-  let(:food_a) { double(:food_a, servings: {:dairy => 1, :fruit => 6}) }
-  let(:food_b) { double(:food_b, servings: {:vegetables => 7}) }
-  let(:food_c) { double(:food_c, servings: {:dairy => 1, :vegetables => 8}) }
+  let(:food_a) { double(:food_a, servings_of: 0) }
+  let(:food_b) { double(:food_b, servings_of: 0) }
+  let(:food_c) { double(:food_c, servingd_of: 0) }
 
   let(:meal) { double(:meal, foods: [food_a, food_b, food_c]) }
 
   it 'sums up the servings in the meal of the given food type' do
+    expect(food_a).to receive(:servings_of).with(:dairy).and_return(1)
+    expect(food_b).to receive(:servings_of).with(:dairy).and_return(0)
+    expect(food_c).to receive(:servings_of).with(:dairy).and_return(1)
     expect(subject.total_servings(:dairy)).to eq 2
   end
 end

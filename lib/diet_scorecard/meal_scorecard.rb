@@ -10,7 +10,7 @@ module DietScorecard
 
     def total_servings(food_type)
       meal.foods.reduce(0) { |total, food|
-        total + food.servings.fetch(food_type, 0)
+        total + food.servings_of(food_type)
       }
     end
 
