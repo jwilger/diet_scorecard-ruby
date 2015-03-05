@@ -1,5 +1,5 @@
 class MealsController < ApplicationController
-  service(:meals) { Meal }
+  service(:meals) { Meal.for_user_id(current_user.id) }
 
   template_attr :meal
   template_attr :daily_scorecard_path_params
@@ -13,7 +13,7 @@ class MealsController < ApplicationController
   end
 
   def create
-    self.meal = meals.create(meal_params.merge(user_id: current_user.id))
+    self.meal = meals.create(meal_params)
     if meal.valid?
       redirect_to daily_scorecard_path(date_params_from(meal.consumed_at))
     else
@@ -23,7 +23,7 @@ class MealsController < ApplicationController
   end
 
   def destroy
-    self.meal = meals.for_user_id(current_user.id).destroy(params[:id])
+    self.meal = meals.destroy(params[:id])
     flash[:notice] = [{key: '.meal_deleted', meal_name: meal.name}]
     redirect_to daily_scorecard_path(date_params_from(meal.consumed_at))
   end

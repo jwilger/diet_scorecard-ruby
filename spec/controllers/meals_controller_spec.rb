@@ -9,10 +9,8 @@ describe MealsController do
   let(:consumed_at) { date.to_time }
 
   let(:meals_service) {
-    double(:meals_service, for_user_id: users_meals, new: meal, create: meal)
+    double(:meals_service, destroy: meal, new: meal, create: meal)
   }
-
-  let(:users_meals) { double(:users_meals, destroy: meal) }
 
   let(:meal) {
     double(:meal, valid?: meal_is_valid, consumed_at: consumed_at,
@@ -85,7 +83,7 @@ describe MealsController do
 
     it 'creates a new Meal object' do
       expect(meals_service).to have_received(:create) \
-        .with(meal_params.merge(user_id: current_user.id))
+        .with(meal_params)
     end
 
     context 'when the meal object is valid' do
@@ -128,13 +126,8 @@ describe MealsController do
         route_to(controller: 'meals', action: 'destroy', id: '5')
     end
 
-    it 'only looks for meals belonging to the current user' do
-      expect(meals_service).to have_received(:for_user_id) \
-        .with(current_user.id)
-    end
-
     it 'deletes the meal' do
-      expect(users_meals).to have_received(:destroy).with('5')
+      expect(meals_service).to have_received(:destroy).with('5')
     end
 
     it 'redirects the user to the daily scorecard page for the meal date' do
