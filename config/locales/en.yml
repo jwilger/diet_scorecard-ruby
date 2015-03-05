@@ -20,6 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  alert:
+    validation_errors_present: "Unable to save your data due to validation errors."
   application:
     notice:
       meal_deleted: "The meal, '%{meal_name}', has been removed."
@@ -44,6 +46,10 @@ en:
       summary_heading: "Summary"
       today_link: 'Today'
       total_points: "Total Points"
+  foods:
+    new:
+      create_food: 'Save'
+      new_food_header: "New Food for %{meal_name} on %{consumed_at}"
   food_type:
     fruits: "Fruits"
     vegetables: "Vegetables"
