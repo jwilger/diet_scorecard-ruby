@@ -1,6 +1,6 @@
 <tr>
   <th><%=t "food_type.#{food_type_scorecard.food_type_key}" %></th>
-  <td><%= food_type_scorecard.servings_consumed %></td>
-  <td><%= formatted_serving_recomendation(food_type_scorecard.servings_recommended) %></td>
-  <td><%= food_type_scorecard.points_earned %></td>
+  <td class="text-center"><%= number_with_precision(food_type_scorecard.servings_consumed, strip_insignificant_zeros: true) %></td>
+  <td class="text-center"><%= formatted_serving_recomendation(food_type_scorecard.servings_recommended) %></td>
+  <td class="text-center"><%= food_type_scorecard.points_earned %></td>
 </tr>

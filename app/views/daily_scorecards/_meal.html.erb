@@ -1,9 +1,10 @@
+<thead>
 <tr class="info">
-  <th colspan="2">
+  <th>
     <%= meal.name %> <small><%=t '.consumed_at',
       time: l(meal.consumed_at, format: :time) %></small>
   </th>
-  <td class="text-right">
+  <td colspan="2" class="text-right">
     <%= link_to(t('.add_food_button'), new_meal_food_path(meal_id: meal.id),
                 class: 'btn btn-success btn-xs') %>
     <%= link_to(t('.edit_meal_button'), edit_meal_path(meal),
@@ -12,6 +13,8 @@
                   class: 'btn btn-danger btn-xs', data: {confirm: "Are you sure you want to delete #{meal.name}?"}) %>
   </td>
 </tr>
+</thead>
+<tbody>
 <% meal.foods.each do |food| %>
   <tr>
     <th class="text-right"><%= food.name %></th>
@@ -22,7 +25,7 @@
             servings = food.servings_of(ft.key)
             next if servings == 0
           %>
-          <li><%=t "food_type.#{ft.key}"%>: <%= servings %></li>
+          <li><%=t "food_type.#{ft.key}"%>: <%= number_with_precision(servings, strip_insignificant_zeros: true) %></li>
         <% end %>
       </ul>
     </td>
@@ -33,3 +36,4 @@
                   data: {confirm: "Are you sure you want to delete #{food.name}?"}) %></td>
   </tr>
 <% end %>
+</tbody>
