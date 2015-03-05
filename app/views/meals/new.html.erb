@@ -1,17 +1,8 @@
-<%
-def form_error_classes(errors)
-  if errors.any?
-    'has-error has-feedback'
-  else
-    ''
-  end
-end
-%>
 <h1><%=t '.new_meal_header', date: l(meal.consumed_at, format: :short_date_only) %></h1>
 
 <% if meal.errors.any? %>
   <div class="alert alert-danger" roler="alert">
-    <%=t '.validation_errors_present' %>
+    <%=t 'validation_errors_present' %>
   </div>
 <% end %>
 
