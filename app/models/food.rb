@@ -7,7 +7,7 @@ class Food < ActiveRecord::Base
   @@servings_fields = []
 
   DietScorecard::FoodType.each do |ft|
-    field_name = "#{ft.key}_servings"
+    field_name = "#{ft.key}_servings".to_sym
     @@servings_fields << field_name
 
     define_method(field_name) do
@@ -22,7 +22,7 @@ class Food < ActiveRecord::Base
   end
 
   def servings_of(food_type)
-    servings.fetch(food_type, 0)
+    servings.fetch(food_type, 0).to_f
   end
 
   def self.servings_fields
