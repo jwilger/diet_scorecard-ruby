@@ -1,5 +1,0 @@
-<% field_id = "#{food_type.key}_servings".to_sym %>
-<div class="form-group">
-  <%= f.label field_id %>
-  <%= f.select field_id, (1..5).to_a.unshift(0, 0.5), {}, class: 'form-control' %>
-</div>

@@ -14,7 +14,7 @@
     <% end %>
   </div>
 
-  <%= render partial: 'food_type', collection: food_types.to_a, locals: {f: f} %>
+  <%= render partial: 'servings_field', collection: food.servings_fields, locals: {f: f} %>
 
   <div class="form-group">
     <%= f.submit t('.save_food'), class: 'btn btn-primary' %>

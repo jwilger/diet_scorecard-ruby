@@ -26,8 +26,12 @@ class Food < ActiveRecord::Base
     servings.fetch(food_type, 0)
   end
 
-  def servings_fields
+  def self.servings_fields
     @@servings_fields.dup
+  end
+
+  def servings_fields
+    self.class.servings_fields
   end
 
   delegate :name, to: :meal, prefix: true

@@ -1,0 +1,4 @@
+<div class="form-group">
+  <%= f.label servings_field %>
+  <%= f.select servings_field, (1..5).to_a.unshift(0, 0.5), {}, class: 'form-control' %>
+</div>
