@@ -1,30 +1,6 @@
 require 'rails_helper'
 
 describe DailyScorecardsController do
-  context 'GET request to /' do
-    let(:clock) { double(:clock, now: today) }
-    let(:today) { Time.zone.local(2012,10,24) }
-
-    before(:each) do
-      controller.load_services(
-        clock: clock
-      )
-      get :today
-    end
-
-    it 'routes to the today action' do
-      expect(get: '/').to route_to controller: 'daily_scorecards',
-        action: 'today'
-    end
-
-    it 'redirects to the show page for the current date' do
-      expect(response).to \
-        redirect_to daily_scorecard_path(year: today.year,
-                                         month: today.month,
-                                         day: today.day)
-    end
-  end
-
   context 'GET request to /:year/:month/:day' do
     let(:daily_scorecard_service) {
       double(:daily_scorecard_service, new: :the_daily_scorecard)

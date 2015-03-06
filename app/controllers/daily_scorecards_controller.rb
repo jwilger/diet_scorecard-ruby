@@ -13,17 +13,20 @@ class DailyScorecardsController < ApplicationController
   template_attr :daily_scorecard
 
   def today
-    date = clock.now
-    redirect_to daily_scorecard_path(year: date.year, month: date.month,
-                                     day: date.day)
+    render_daily_scorecard clock.now
   end
 
   def show
-    date = clock.local(params[:year], params[:month], params[:day])
+    render_daily_scorecard clock.local(params[:year], params[:month], params[:day])
+  end
+
+  private
+
+  def render_daily_scorecard(date)
     self.daily_scorecard = daily_scorecards.new(
       date: date,
       meals_service: meals.for_user_id(current_user.id)
     )
-    render
+    render action: :show
   end
 end
