@@ -9,7 +9,7 @@ describe MealsController do
   let(:consumed_at) { date.to_time }
 
   let(:meals_service) {
-    double(:meals_service, destroy: meal, new: meal, create: meal)
+    double(:meals_service, find: meal, destroy: meal, new: meal, create: meal)
   }
 
   let(:meal) {
@@ -137,6 +137,37 @@ describe MealsController do
 
     it 'sets the flash message that the meal was deleted' do
       expect(flash[:notice]).to eq [{key: '.meal_deleted', meal_name: meal.name}]
+    end
+  end
+
+  context 'GET /meals/:id/edit' do
+    it 'routes to the edit action' do
+      expect(get: '/meals/6/edit').to \
+        route_to(controller: 'meals', action: 'edit', id: '6')
+    end
+
+    before(:each) do
+      get :edit, id: '6'
+    end
+
+    it 'finds the speicified meal for the current user' do
+      expect(meals_service).to have_received(:find).with('6')
+    end
+
+    it 'exposes the specified meal to the template' do
+      expect(controller.meal).to eq meal
+    end
+
+    it 'responds with a 200 status' do
+      expect(response.status).to eq 200
+    end
+
+    it 'renders the meals/edit template' do
+      expect(response).to render_template('meals/edit')
+    end
+
+    it 'renders as HTML' do
+      expect(response.content_type).to eq 'text/html'
     end
   end
 end

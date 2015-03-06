@@ -1,30 +1,3 @@
 <h1><%=t '.new_meal_header', date: l(meal.consumed_at, format: :short_date_only) %></h1>
 
-<% if meal.errors.any? %>
-  <div class="alert alert-danger" roler="alert">
-    <%=t 'validation_errors_present' %>
-  </div>
-<% end %>
-
-<%= form_for meal do |f| %>
-  <div class="form-group <%= form_error_classes(meal.errors[:name]) %>">
-    <%= f.text_field :name, class: 'form-control', placeholder: t('.meal_name_placeholder') %>
-    <% if meal.errors[:name].any? %>
-      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-      <span class="help-block"><%= meal.errors[:name].join(', ') %></span>
-    <% end %>
-  </div>
-
-  <div class="form-group form-inline">
-    <span class="help-block">
-      <%= f.label :consumed_at %>
-    </span>
-    <%= f.time_select :consumed_at, {:ampm => true, :minute_step => 15},
-      {:class => 'form-control'} %>
-  </div>
-
-  <div class="form-group">
-    <%= f.submit t('.create_meal'), class: 'btn btn-primary' %>
-    <%= link_to t('cancel_button'), daily_scorecard_path(daily_scorecard_path_params), class: 'btn btn-default' %>
-  </div>
-<% end %>
+<%= render partial: 'form', locals: {meal: meal} %>

@@ -60,10 +60,13 @@ en:
     alcohol: "Alcoholic Beverages"
     condiments: "Condiments"
   meals:
-    new:
-      create_meal: 'Create Meal'
-      new_meal_header: "Add New Meal for %{date}"
+    form:
       meal_name_placeholder: 'Enter name of meal'
+      save_meal: 'Save'
+    new:
+      new_meal_header: "Add New Meal for %{date}"
+    edit:
+      edit_meal_header: "Edit Meal for %{date}"
   time:
     formats:
       time: "%l:%M %P"

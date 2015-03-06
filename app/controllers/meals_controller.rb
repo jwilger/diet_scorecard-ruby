@@ -28,6 +28,11 @@ class MealsController < ApplicationController
     redirect_to daily_scorecard_path(date_params_from(meal.consumed_at))
   end
 
+  def edit
+    self.meal = meals.find(params[:id])
+    self.daily_scorecard_path_params = date_params_from(meal.consumed_at)
+  end
+
   private
 
   def date_params_from(date)
