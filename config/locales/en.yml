@@ -40,12 +40,12 @@ en:
       new_meal_header: 'Add New Meal'
       points_earned_heading: "Points Earned"
       previous_day_link: 'Previous Day'
-      scorecard_for: "Daily Scorecard for %{date}"
+      scorecard_for: "Diet Quality Scorecard for %{date}"
       servings_consumed_heading: "Servings Consumed"
       servings_recomended_heading: "Recomended Servings"
-      summary_heading: "Summary"
+      summary_heading: "Breakdown"
       today_link: 'Today'
-      total_points: "Today's Score"
+      total_points: "Score"
   food_type:
     fruits: "Fruits"
     vegetables: "Vegetables"

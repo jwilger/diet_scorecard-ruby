@@ -24,3 +24,15 @@
  .btn {
    margin: 0.5em;
  }
+
+ .glyphicon-success {
+   @extend .glyphicon-ok;
+ }
+
+ .glyphicon-warning {
+   @extend .glyphicon-alert;
+ }
+
+ .glyphicon-danger {
+   @extend .glyphicon-remove;
+ }
