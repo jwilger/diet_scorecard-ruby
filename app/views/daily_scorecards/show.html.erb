@@ -15,7 +15,7 @@
       <span class="glyphicon glyphicon-<%= total_points_score_type(daily_scorecard) %>" aria-hidden="true"></span>
     </h2>
     <h2><%=t '.summary_heading' %></h2>
-    <table class="table table-hover">
+    <table class="table">
       <thead>
         <tr>
           <th></th>
@@ -37,7 +37,7 @@
         class: 'btn btn-success') %>
     </h2>
     <div class="row">
-      <table class="table table-hover">
+      <table class="table">
         <%= render partial: 'meal', collection: daily_scorecard.meals %>
       </table>
     </div>
