@@ -2,9 +2,20 @@ require 'rails_helper'
 
 describe FoodsController do
   let(:meal_service) { double(:meal_service, find: meal) }
-  let(:meal) { double(:meal, new_food: food, consumed_at: consumed_at) }
-  let(:food) { double(:food) }
+
+  let(:meal) {
+    double(:meal, new_food: food, consumed_at: consumed_at, create_food: food)
+  }
+
   let(:consumed_at) { Time.zone.local(2012,3,15,12,30) }
+  let(:food) { double(:food, valid?: food_valid) }
+  let(:food_valid) { true }
+
+  let(:food_params) {
+    Food.servings_fields.reduce({name: 'Mystery Meat'}) { |params, field|
+      params.merge(field => '2')
+    }
+  }
 
   before(:each) do
     controller.load_services(meals: meal_service)
@@ -47,6 +58,57 @@ describe FoodsController do
     it 'exposes daily_scorecard_path_params to the template' do
       expect(controller.daily_scorecard_path_params).to \
         eq({year: 2012, month: 3, day: 15})
+    end
+  end
+
+  context 'POST /meals/:meal_id/foods' do
+    before(:each) do
+      post :create, meal_id: '9', food: food_params
+    end
+
+    it 'routes to the create action' do
+      expect(post: '/meals/9/foods').to \
+        route_to(controller: 'foods', action: 'create', meal_id: '9')
+    end
+
+    it 'finds the specified meal' do
+      expect(meal_service).to have_received(:find).with('9')
+    end
+
+    it 'creates a new food for the meal' do
+      expect(meal).to have_received(:create_food).with(food_params)
+    end
+
+    context 'when the food is valid' do
+      it 'redirects to the daily scorecard page for the date of the meal' do
+        expect(response).to \
+          redirect_to daily_scorecard_path(year: 2012, month: 3, day: 15)
+      end
+    end
+
+    context 'when the food is invalid' do
+      let(:food_valid) { false }
+
+      it 'exposes the food to the template' do
+        expect(controller.food).to eq food
+      end
+
+      it 'renders the foods/new template' do
+        expect(response).to render_template('foods/new')
+      end
+
+      it 'renders as HTML' do
+        expect(response.content_type).to eq 'text/html'
+      end
+
+      it 'responds with a 422 status code' do
+        expect(response.status).to eq 422
+      end
+
+      it 'exposes daily_scorecard_path_params to the template' do
+        expect(controller.daily_scorecard_path_params).to \
+          eq({year: 2012, month: 3, day: 15})
+      end
     end
   end
 end

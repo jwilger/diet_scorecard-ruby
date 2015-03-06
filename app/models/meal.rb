@@ -18,4 +18,8 @@ class Meal < ActiveRecord::Base
   def new_food(*args)
     foods.build(*args)
   end
+
+  def create_food(*args)
+    foods.create(*args)
+  end
 end
