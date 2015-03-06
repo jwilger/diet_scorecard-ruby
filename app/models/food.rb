@@ -20,7 +20,7 @@ class Food < ActiveRecord::Base
       servings[ft.key] = value
     end
 
-    validates field_name, numericality: {only_integer: true}
+    validates field_name, numericality: true
   end
 
   def servings_of(food_type)
