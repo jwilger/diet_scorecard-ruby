@@ -59,6 +59,12 @@ en:
     dark_chocolate: "Dark Chocolate (1 square)"
     alcohol: "Alcoholic Beverages"
     condiments: "Condiments"
+  foods:
+    form:
+      food_name_placeholder: 'Enter name of food'
+      save_food: 'Save'
+    new:
+      new_food_header: "Add New Food to %{meal_name}"
   meals:
     form:
       meal_name_placeholder: 'Enter name of meal'

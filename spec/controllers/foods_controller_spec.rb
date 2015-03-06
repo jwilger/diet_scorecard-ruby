@@ -2,8 +2,9 @@ require 'rails_helper'
 
 describe FoodsController do
   let(:meal_service) { double(:meal_service, find: meal) }
-  let(:meal) { double(:meal, new_food: food) }
+  let(:meal) { double(:meal, new_food: food, consumed_at: consumed_at) }
   let(:food) { double(:food) }
+  let(:consumed_at) { Time.zone.local(2012,3,15,12,30) }
 
   before(:each) do
     controller.load_services(meals: meal_service)
@@ -41,6 +42,11 @@ describe FoodsController do
 
     it 'exposes the food to the template' do
       expect(controller.food).to eq food
+    end
+
+    it 'exposes daily_scorecard_path_params to the template' do
+      expect(controller.daily_scorecard_path_params).to \
+        eq({year: 2012, month: 3, day: 15})
     end
   end
 end

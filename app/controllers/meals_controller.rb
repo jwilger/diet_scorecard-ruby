@@ -46,10 +46,6 @@ class MealsController < ApplicationController
 
   private
 
-  def date_params_from(date)
-    {:year => date.year, :month => date.month, :day => date.day}
-  end
-
   def meal_params
     params.require(:meal).permit(:consumed_at, :name)
   end

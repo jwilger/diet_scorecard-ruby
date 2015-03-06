@@ -29,4 +29,6 @@ class Food < ActiveRecord::Base
   def servings_fields
     @@servings_fields.dup
   end
+
+  delegate :name, to: :meal, prefix: true
 end

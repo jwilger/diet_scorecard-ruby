@@ -1,0 +1,20 @@
+<% if food.errors.any? %>
+  <div class="alert alert-danger" roler="alert">
+    <%=t 'validation_errors_present' %>
+  </div>
+<% end %>
+
+<%= form_for food, url: meal_foods_path(food.meal) do |f| %>
+  <div class="form-group <%= form_error_classes(food.errors[:name]) %>">
+    <%= f.text_field :name, class: 'form-control', placeholder: t('.food_name_placeholder') %>
+    <% if food.errors[:name].any? %>
+      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+      <span class="help-block"><%= food.errors[:name].join(', ') %></span>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit t('.save_food'), class: 'btn btn-primary' %>
+    <%= link_to t('cancel_button'), daily_scorecard_path(daily_scorecard_path_params), class: 'btn btn-default' %>
+  </div>
+<% end %>

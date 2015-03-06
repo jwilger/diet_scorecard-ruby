@@ -61,4 +61,10 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  private
+
+  def date_params_from(date)
+    {:year => date.year, :month => date.month, :day => date.day}
+  end
 end
