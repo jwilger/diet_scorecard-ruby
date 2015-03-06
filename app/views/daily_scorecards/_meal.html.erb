@@ -6,11 +6,11 @@
   </th>
   <td colspan="2" class="text-right">
     <%= link_to(t('.add_food_button'), new_meal_food_path(meal_id: meal.id),
-                class: 'btn btn-success btn-xs') %>
+                class: 'btn btn-success') %>
     <%= link_to(t('.edit_meal_button'), edit_meal_path(meal),
-                class: 'btn btn-default btn-xs') %>
+                class: 'btn btn-default') %>
     <%= button_to(t('.delete_meal_button'), meal_path(meal), method: :delete,
-                  class: 'btn btn-danger btn-xs', data: {confirm: "Are you sure you want to delete #{meal.name}?"}) %>
+                  class: 'btn btn-danger', data: {confirm: "Are you sure you want to delete #{meal.name}?"}) %>
   </td>
 </tr>
 </thead>
@@ -30,9 +30,9 @@
       </ul>
     </td>
     <td class="text-right"><%= link_to(t('.edit_food_button'), edit_food_path(food),
-                    class: 'btn btn-default btn-xs') %>
+                    class: 'btn btn-default') %>
     <%= button_to(t('.delete_food_button'), food_path(food),
-                  method: :delete, class: 'btn btn-danger btn-xs',
+                  method: :delete, class: 'btn btn-danger',
                   data: {confirm: "Are you sure you want to delete #{food.name}?"}) %></td>
   </tr>
 <% end %>
