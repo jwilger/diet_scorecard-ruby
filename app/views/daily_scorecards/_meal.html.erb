@@ -1,23 +1,25 @@
 <thead>
 <tr class="info">
-  <th>
-    <%= meal.name %> <small><%=t '.consumed_at',
-      time: l(meal.consumed_at, format: :time) %></small>
-  </th>
-  <td colspan="2" class="text-right">
-    <%= link_to(t('.add_food_button'), new_meal_food_path(meal_id: meal.id),
-                class: 'btn btn-success') %>
-    <%= link_to(t('.edit_meal_button'), edit_meal_path(meal),
-                class: 'btn btn-default') %>
-    <%= button_to(t('.delete_meal_button'), meal_path(meal), method: :delete,
-                  class: 'btn btn-danger', data: {confirm: "Are you sure you want to delete #{meal.name}?"}) %>
+  <th colspan=3">
+    <div class="col-md-5">
+      <h3><%= meal.name %> <small><%=t '.consumed_at',
+        time: l(meal.consumed_at, format: :time) %></small></h3>
+    </div>
+    <div class="col-md-7 text-right">
+      <%= link_to(t('.add_food_button'), new_meal_food_path(meal_id: meal.id),
+                  class: 'btn btn-success') %>
+      <%= link_to(t('.edit_meal_button'), edit_meal_path(meal),
+                  class: 'btn btn-default') %>
+      <%= button_to(t('.delete_meal_button'), meal_path(meal), method: :delete,
+                    class: 'btn btn-danger', data: {confirm: "Are you sure you want to delete #{meal.name}?"}) %>
+    </div>
   </td>
 </tr>
 </thead>
 <tbody>
 <% meal.foods.each do |food| %>
   <tr>
-    <th class="text-right"><%= food.name %></th>
+    <th><%= food.name %></th>
     <td>
       <ul>
         <% food_types.each do |ft| %>
@@ -29,9 +31,9 @@
         <% end %>
       </ul>
     </td>
-    <td class="text-right"><%= link_to(t('.edit_food_button'), edit_food_path(food),
+    <td class="text-right"><%= link_to(t('.edit_food_button'), edit_meal_food_path(food.meal, food),
                     class: 'btn btn-default') %>
-    <%= button_to(t('.delete_food_button'), food_path(food),
+    <%= button_to(t('.delete_food_button'), meal_food_path(food.meal, food),
                   method: :delete, class: 'btn btn-danger',
                   data: {confirm: "Are you sure you want to delete #{food.name}?"}) %></td>
   </tr>
