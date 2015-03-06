@@ -66,6 +66,8 @@ en:
       save_food: 'Save'
     new:
       new_food_header: "Add New Food to %{meal_name}"
+    edit:
+      edit_food_header: "Edit %{meal_name} Food"
   meals:
     form:
       meal_name_placeholder: 'Enter name of meal'

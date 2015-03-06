@@ -26,4 +26,8 @@ class Meal < ActiveRecord::Base
   def destroy_food(id)
     foods.find(id).destroy
   end
+
+  def find_food(*args)
+    foods.find(*args)
+  end
 end

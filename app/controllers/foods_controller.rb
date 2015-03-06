@@ -1,4 +1,6 @@
 class FoodsController < ApplicationController
+  helper :food_type
+
   service(:meals) { Meal.for_user_id(current_user.id) }
 
   template_attr :food
@@ -20,6 +22,10 @@ class FoodsController < ApplicationController
     self.food = meal.destroy_food(params[:id])
     flash[:notice] = [{key: '.food_deleted', food_name: food.name}]
     redirect_to daily_scorecard_path(daily_scorecard_path_params)
+  end
+
+  def edit
+    self.food = meal.find_food(params[:id])
   end
 
   def daily_scorecard_path_params

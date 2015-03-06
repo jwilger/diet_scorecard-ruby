@@ -5,7 +5,7 @@ describe FoodsController do
 
   let(:meal) {
     double(:meal, new_food: food, consumed_at: consumed_at, create_food: food,
-           destroy_food: food)
+           destroy_food: food, find_food: food)
   }
 
   let(:consumed_at) { Time.zone.local(2012,3,15,12,30) }
@@ -138,6 +138,46 @@ describe FoodsController do
 
     it 'sets the flash message that the food was deleted' do
       expect(flash[:notice]).to eq [{key: '.food_deleted', food_name: food.name}]
+    end
+  end
+
+  context 'GET /meals/:meal_id/foods/:id/edit' do
+    before(:each) do
+      get :edit, meal_id: '6', id: '9'
+    end
+
+    it 'routes to the edit action' do
+      expect(get: '/meals/6/foods/9/edit').to \
+        route_to(controller: 'foods', action: 'edit', meal_id: '6', id: '9')
+    end
+
+    it 'responds with a 200 status' do
+      expect(response.status).to eq 200
+    end
+
+    it 'renders the foods/edit template' do
+      expect(response).to render_template('foods/edit')
+    end
+
+    it 'renders as html' do
+      expect(response.content_type).to eq 'text/html'
+    end
+
+    it 'finds the specified meal' do
+      expect(meal_service).to have_received(:find).with('6')
+    end
+
+    it 'finds the food' do
+      expect(meal).to have_received(:find_food).with('9')
+    end
+
+    it 'exposes the food to the template' do
+      expect(controller.food).to eq food
+    end
+
+    it 'exposes daily_scorecard_path_params to the template' do
+      expect(controller.daily_scorecard_path_params).to \
+        eq({year: 2012, month: 3, day: 15})
     end
   end
 end
