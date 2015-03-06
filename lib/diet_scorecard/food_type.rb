@@ -83,6 +83,7 @@ module DietScorecard
       FoodType.new(:nuts, score_table: [2,2,1,0,0,-1]),
       FoodType.new(:whole_grains, score_table: [2,2,1,0,0,-1]),
       FoodType.new(:dairy, score_table: [1,1,1,0,-1,-2]),
+      FoodType.new(:omega_3, score_table: [1,0]),
       FoodType.new(:refined_grains, score_table: [-1,-1,-2]),
       FoodType.new(:sweets, score_table: [-2]),
       FoodType.new(:fried_foods, score_table: [-2]),

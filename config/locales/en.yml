@@ -60,6 +60,7 @@ en:
     dark_chocolate: "Dark Chocolate (1 square)"
     alcohol: "Alcoholic Beverages"
     condiments: "Condiments"
+    omega_3: "Source of Omega-3"
   foods:
     form:
       food_name_placeholder: 'Enter name of food'
