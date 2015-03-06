@@ -34,6 +34,10 @@ module DietScorecard
       }
     end
 
+    def possible_points
+      food_type.possible_points
+    end
+
     private
 
     attr_accessor :meals_service, :meal_scorecards_service

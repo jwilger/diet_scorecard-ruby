@@ -111,4 +111,8 @@ describe DietScorecard::FoodType do
       expect([b,d,f,h,g,e,c,a].sort).to eq [a,b,c,d,e,f,g,h]
     end
   end
+
+  it 'knows the maximum possible points' do
+    expect(subject.possible_points).to eq 6
+  end
 end

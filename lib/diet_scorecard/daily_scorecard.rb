@@ -13,7 +13,13 @@ module DietScorecard
 
     def total_points
       food_type_scorecards.reduce(0) { |total, fts|
-        total += fts.points_earned
+        total + fts.points_earned
+      }
+    end
+
+    def possible_points
+      food_type_scorecards.reduce(0) { |total, fts|
+        total + fts.possible_points
       }
     end
 

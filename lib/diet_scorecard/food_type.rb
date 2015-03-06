@@ -39,6 +39,10 @@ module DietScorecard
       total / 6.0
     end
 
+    def possible_points
+      positive_score_table.reduce(0) { |total, value| total + value }
+    end
+
     def points_for_serving(serving_number)
       if serving_number < 1 || serving_number % 1 != 0
         raise ArgumentError, "Serving number must be an integer greater than 0"

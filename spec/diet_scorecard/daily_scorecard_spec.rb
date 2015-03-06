@@ -35,6 +35,11 @@ describe DietScorecard::DailyScorecard do
     end
   end
 
+  it 'reports the possible points as the sum of possible points from each food type scorecard' do
+    expected_total = subject.food_type_scorecards.reduce(0) { |total, ftsc| total + ftsc.possible_points }
+    expect(subject.possible_points).to eq expected_total
+  end
+
   context 'when instantiated with a Time object for date' do
     let(:the_date) { Time.local(2014,10,13,14,21,33) }
 

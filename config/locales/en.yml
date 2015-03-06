@@ -45,7 +45,7 @@ en:
       servings_recomended_heading: "Recomended Servings"
       summary_heading: "Summary"
       today_link: 'Today'
-      total_points: "Total Points"
+      total_points: "Today's Score"
   food_type:
     fruits: "Fruits"
     vegetables: "Vegetables"
