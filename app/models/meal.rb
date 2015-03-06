@@ -14,4 +14,8 @@ class Meal < ActiveRecord::Base
   validates :consumed_at, presence: true
 
   has_many :foods, dependent: :destroy
+
+  def new_food(*args)
+    foods.build(*args)
+  end
 end
