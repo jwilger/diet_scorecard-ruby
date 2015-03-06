@@ -16,6 +16,12 @@ class FoodsController < ApplicationController
     end
   end
 
+  def destroy
+    self.food = meal.destroy_food(params[:id])
+    flash[:notice] = [{key: '.food_deleted', food_name: food.name}]
+    redirect_to daily_scorecard_path(daily_scorecard_path_params)
+  end
+
   def daily_scorecard_path_params
     date_params_from(meal.consumed_at)
   end

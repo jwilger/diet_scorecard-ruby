@@ -4,11 +4,12 @@ describe FoodsController do
   let(:meal_service) { double(:meal_service, find: meal) }
 
   let(:meal) {
-    double(:meal, new_food: food, consumed_at: consumed_at, create_food: food)
+    double(:meal, new_food: food, consumed_at: consumed_at, create_food: food,
+           destroy_food: food)
   }
 
   let(:consumed_at) { Time.zone.local(2012,3,15,12,30) }
-  let(:food) { double(:food, valid?: food_valid) }
+  let(:food) { double(:food, valid?: food_valid, name: 'Mystery Meat') }
   let(:food_valid) { true }
 
   let(:food_params) {
@@ -109,6 +110,34 @@ describe FoodsController do
         expect(controller.daily_scorecard_path_params).to \
           eq({year: 2012, month: 3, day: 15})
       end
+    end
+  end
+
+  context 'DELETE /meals/:meal_id/foods/:id' do
+    before(:each) do
+      delete :destroy, meal_id: '3', id: '5'
+    end
+
+    it 'routes to the destroy action' do
+      expect(delete: '/meals/3/foods/5').to \
+        route_to(controller: 'foods', action: 'destroy', meal_id: '3', id: '5')
+    end
+
+    it 'finds the specified meal' do
+      expect(meal_service).to have_received(:find).with('3')
+    end
+
+    it 'deletes the food' do
+      expect(meal).to have_received(:destroy_food).with('5')
+    end
+
+    it 'redirects the user to the daily scorecard page for the meal date' do
+      expect(response).to \
+        redirect_to daily_scorecard_path(year: 2012, month: 3, day: 15)
+    end
+
+    it 'sets the flash message that the food was deleted' do
+      expect(flash[:notice]).to eq [{key: '.food_deleted', food_name: food.name}]
     end
   end
 end
