@@ -10,7 +10,6 @@ class Food < ActiveRecord::Base
     field_name = "#{ft.key}_servings"
     @@servings_fields << field_name
 
-    puts "defining methods for #{field_name}"
     define_method(field_name) do
       servings_of(ft.key)
     end
