@@ -33,6 +33,17 @@ class MealsController < ApplicationController
     self.daily_scorecard_path_params = date_params_from(meal.consumed_at)
   end
 
+  def update
+    self.meal = meals.find(params[:id])
+    meal.update_attributes(meal_params)
+    if meal.valid?
+      redirect_to daily_scorecard_path(date_params_from(meal.consumed_at))
+    else
+      self.daily_scorecard_path_params = date_params_from(meal.consumed_at)
+      render action: 'edit', status: 422
+    end
+  end
+
   private
 
   def date_params_from(date)
