@@ -4,6 +4,8 @@ class Food < ActiveRecord::Base
   belongs_to :meal
   serialize :servings, Hash
 
+  validates :name, presence: true
+
   @@servings_fields = []
 
   DietScorecard::FoodType.each do |ft|
