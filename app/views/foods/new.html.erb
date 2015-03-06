@@ -1,3 +1,3 @@
 <h1><%=t '.new_food_header', meal_name: food.meal_name %></h1>
 
-<%= render partial: 'form', locals: {food: food} %>
+<%= render partial: 'form', locals: {food: food, form_url: meal_foods_path(food.meal)} %>

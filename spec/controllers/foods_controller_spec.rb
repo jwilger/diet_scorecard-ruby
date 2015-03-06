@@ -5,7 +5,7 @@ describe FoodsController do
 
   let(:meal) {
     double(:meal, new_food: food, consumed_at: consumed_at, create_food: food,
-           destroy_food: food, find_food: food)
+           destroy_food: food, find_food: food, update_food: food)
   }
 
   let(:consumed_at) { Time.zone.local(2012,3,15,12,30) }
@@ -178,6 +178,57 @@ describe FoodsController do
     it 'exposes daily_scorecard_path_params to the template' do
       expect(controller.daily_scorecard_path_params).to \
         eq({year: 2012, month: 3, day: 15})
+    end
+  end
+
+  context 'PATCH /meals/:meal_id/foods/:id' do
+    before(:each) do
+      patch :update, id: '6', meal_id: '9', food: food_params
+    end
+
+    it 'routes to the edit action' do
+      expect(patch: '/meals/9/foods/6').to \
+        route_to(controller: 'foods', action: 'update', id: '6', meal_id: '9')
+    end
+
+    it 'finds the specified meal' do
+      expect(meal_service).to have_received(:find).with('9')
+    end
+
+    it 'updates the food' do
+      expect(meal).to have_received(:update_food).with('6', food_params)
+    end
+
+    context 'when the food is valid' do
+      it 'redirects to the daily scorecard page for the date of the meal' do
+        expect(response).to \
+          redirect_to daily_scorecard_path(year: 2012, month: 3, day: 15)
+      end
+    end
+
+    context 'when the food is invalid' do
+      let(:food_valid) { false }
+
+      it 'exposes the food to the template' do
+        expect(controller.food).to eq food
+      end
+
+      it 'renders the foods/edit template' do
+        expect(response).to render_template('foods/edit')
+      end
+
+      it 'renders as HTML' do
+        expect(response.content_type).to eq 'text/html'
+      end
+
+      it 'responds with a 422 status code' do
+        expect(response.status).to eq 422
+      end
+
+      it 'exposes daily_scorecard_path_params to the template' do
+        expect(controller.daily_scorecard_path_params).to \
+          eq({year: 2012, month: 3, day: 15})
+      end
     end
   end
 end

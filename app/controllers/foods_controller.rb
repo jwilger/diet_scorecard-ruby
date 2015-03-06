@@ -28,6 +28,15 @@ class FoodsController < ApplicationController
     self.food = meal.find_food(params[:id])
   end
 
+  def update
+    self.food = meal.update_food(params[:id], food_params)
+    if food.valid?
+      redirect_to daily_scorecard_path(daily_scorecard_path_params)
+    else
+      render action: :edit, status: 422
+    end
+  end
+
   def daily_scorecard_path_params
     date_params_from(meal.consumed_at)
   end

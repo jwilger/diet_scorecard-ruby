@@ -30,4 +30,10 @@ class Meal < ActiveRecord::Base
   def find_food(*args)
     foods.find(*args)
   end
+
+  def update_food(id, *args)
+    find_food(id).tap do |food|
+      food.update_attributes(*args)
+    end
+  end
 end

@@ -4,7 +4,7 @@
   </div>
 <% end %>
 
-<%= form_for food, url: meal_foods_path(food.meal) do |f| %>
+<%= form_for food, url: form_url do |f| %>
   <div class="form-group <%= form_error_classes(food.errors[:name]) %>">
     <%= f.label :name %>
     <%= f.text_field :name, class: 'form-control', placeholder: t('.food_name_placeholder') %>
