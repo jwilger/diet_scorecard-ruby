@@ -19,7 +19,11 @@ describe MealsController do
 
   let(:meal_is_valid) { true }
 
-  let(:current_user) { double(:current_user, time_zone: Time.zone, id: 42) }
+  let(:current_user) {
+    User.create!(email: 'testuser@example.com', password: 'testuser password').tap do |u|
+      u.confirm!
+    end
+  }
 
   let(:meal_params) {{
     'name' => 'Breakfast',
@@ -33,8 +37,8 @@ describe MealsController do
   before(:each) do
     controller.load_services(
       meals: meals_service,
-      current_user: current_user
     )
+    sign_in current_user
   end
 
   context 'GET /:year/:month/:day/meals/new' do

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users
+
   root to: 'daily_scorecards#today'
 
   get '/', to: 'daily_scorecards#today', as: 'daily_scorecard_today'

@@ -6,7 +6,11 @@ describe DailyScorecardsController do
       double(:daily_scorecard_service, new: :the_daily_scorecard)
     }
 
-    let(:current_user) { double(:current_user, time_zone: Time.zone, id: 42) }
+    let(:current_user) {
+      User.create!(email: 'testuser@example.com', password: 'testuser password').tap do |u|
+        u.confirm!
+      end
+    }
 
     let(:the_date) { Time.zone.local(2005,7,27) }
 
@@ -20,9 +24,9 @@ describe DailyScorecardsController do
     before(:each) do
       controller.load_services(
         daily_scorecards: daily_scorecard_service,
-        current_user: current_user,
         meals: meals_service
       )
+      sign_in current_user
       get :show, year: year, month: month, day: day
     end
 

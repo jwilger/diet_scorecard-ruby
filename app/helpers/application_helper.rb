@@ -6,4 +6,13 @@ module ApplicationHelper
       ''
     end
   end
+
+  def render_flash_messages(obj)
+    case obj
+    when String
+      obj
+    else
+      t(obj.delete('key'), obj.symbolize_keys)
+    end
+  end
 end

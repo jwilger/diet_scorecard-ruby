@@ -3,10 +3,16 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  before_action :authenticate_user!
+
   around_filter :set_time_zone
 
   def set_time_zone(&block)
-    Time.use_zone(current_user.time_zone, &block)
+    if user_signed_in?
+      Time.use_zone(current_user.timezone, &block)
+    else
+      yield
+    end
   end
 
   module HasServices
@@ -44,23 +50,6 @@ class ApplicationController < ActionController::Base
   end
 
   extend HasTemplateAttrs
-
-  service(:current_user) { TemporaryUserHack::User.new }
-
-  # TODO: This is a temporary hack to allow the *concept* of a logged in user to
-  # be built in from the beginning without actually have to deal with any
-  # authentication yet.
-  module TemporaryUserHack
-    class User
-      def id
-        1
-      end
-
-      def time_zone
-        'PST8PDT'
-      end
-    end
-  end
 
   private
 

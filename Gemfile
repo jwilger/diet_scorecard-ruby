@@ -18,6 +18,9 @@ gem 'rails_12factor', group: :production
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 
+gem 'devise'
+gem 'simple_form'
+
 group :development, :test do
   gem 'foreman'
   gem 'byebug'

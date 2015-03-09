@@ -10,6 +10,8 @@
   </head>
   <body>
     <div class="container">
+      <%= render partial: 'navbar' %>
+      <%= render partial: 'alert', collection: Array.wrap(flash[:alert]) %>
       <%= render partial: 'notice', collection: Array.wrap(flash[:notice]) %>
       <%= yield %>
     </div>

@@ -18,7 +18,14 @@ describe FoodsController do
     }
   }
 
+  let(:current_user) {
+    User.create!(email: 'testuser@example.com', password: 'testuser password').tap do |u|
+      u.confirm!
+    end
+  }
+
   before(:each) do
+    sign_in current_user
     controller.load_services(meals: meal_service)
   end
 
