@@ -21,6 +21,8 @@ gem 'autoprefixer-rails'
 gem 'devise'
 gem 'simple_form'
 
+gem 'omniauth-facebook'
+
 group :development, :test do
   gem 'foreman'
   gem 'byebug'

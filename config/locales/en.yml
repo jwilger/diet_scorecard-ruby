@@ -46,6 +46,10 @@ en:
       summary_heading: "Breakdown"
       today_link: 'Today'
       total_points: "Score"
+  devise:
+    sessions:
+      new:
+        facebook_login: 'Log in with Facebook'
   food_type:
     fruits: "Fruits"
     vegetables: "Vegetables"
