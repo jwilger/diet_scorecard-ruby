@@ -81,9 +81,13 @@ en:
       new_meal_header: "Add New Meal for %{date}"
     edit:
       edit_meal_header: "Edit Meal for %{date}"
+  settings: 'Settings'
   sign_out: 'Sign Out'
   time:
     formats:
       time: "%l:%M %P"
       short_date_only: '%m/%d/%Y'
+  users:
+    edit:
+      edit_settings: 'Account Settings'
   validation_errors_present: "Oops! We weren't able to save that due to a problem with the information you entered."

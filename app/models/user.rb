@@ -3,16 +3,16 @@ class User < ActiveRecord::Base
     :trackable, :validatable, :confirmable
   devise :omniauthable, :omniauth_providers => [:facebook]
 
+  validates :timezone,
+    inclusion: {in: ActiveSupport::TimeZone.all.map(&:name), message: "%{value} is not a valid time zone"}
+
   def self.from_omniauth(auth)
     user = where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
+      user.timezone = ActiveSupport::TimeZone[auth.extra.raw_info.timezone].name
       user.confirmed_at = Time.now
     end
-    offset = auth.extra.raw_info.timezone
-    user.tap { |u|
-      u.update_attributes(timezone: ActiveSupport::TimeZone[offset].name)
-    }
   end
 
   def self.new_with_session(params, session)

@@ -1,0 +1,6 @@
+<h1><%=t '.edit_settings' %></h1>
+
+<%= simple_form_for current_user, url: settings_path, method: :patch do |f| %>
+  <%= f.input :timezone, as: :time_zone, priority: /US/ %>
+  <%= f.submit 'Save', class: 'btn btn-primary' %>
+<% end %>
