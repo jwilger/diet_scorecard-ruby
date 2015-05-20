@@ -11,9 +11,10 @@
 <div class="row">
   <div id="daily_scorecard_summary" class="col-lg-4">
     <h2 class="text-<%= total_points_score_type(daily_scorecard) %>" id="dqs_total_points">
-      <%=t '.total_points' %>: <%= daily_scorecard.total_points %> / <%= daily_scorecard.possible_points %>
+      <%=t '.total_points' %>: <%= daily_scorecard.score.round %>%
       <span class="glyphicon glyphicon-<%= total_points_score_type(daily_scorecard) %>" aria-hidden="true"></span>
     </h2>
+    <p><%=t '.running_average' %>: <%= running_average_score.round %>%</p>
     <h2><%=t '.summary_heading' %></h2>
     <table class="table">
       <thead>

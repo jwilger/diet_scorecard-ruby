@@ -40,6 +40,7 @@ en:
       new_meal_header: 'Add New Meal'
       points_earned_heading: "Points Earned"
       previous_day_link: 'Previous Day'
+      running_average: '7-Day Running Average'
       scorecard_for: "Diet Quality Scorecard for %{date}"
       servings_consumed_heading: "Servings Consumed"
       servings_recomended_heading: "Recomended Servings"

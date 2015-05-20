@@ -23,6 +23,10 @@ module DietScorecard
       }
     end
 
+    def score
+      ((total_points.to_f / possible_points.to_f) * 100)
+    end
+
     def food_type_scorecards
       FoodType.map { |ft|
         FoodTypeScoreCard.new(food_type: ft, date: date,
