@@ -3,8 +3,10 @@ require 'rails_helper'
 describe DailyScorecardsController do
   context 'GET request to /:year/:month/:day' do
     let(:daily_scorecard_service) {
-      double(:daily_scorecard_service, new: :the_daily_scorecard)
+      double(:daily_scorecard_service, new: the_daily_scorecard)
     }
+
+    let(:the_daily_scorecard) { double(:the_daily_scorecard, score: 10) }
 
     let(:current_user) {
       User.create!(email: 'testuser@example.com', password: 'testuser password').tap do |u|
@@ -57,7 +59,7 @@ describe DailyScorecardsController do
     end
 
     it 'exposes the DailyScorecard to the template' do
-      expect(controller.daily_scorecard).to eq :the_daily_scorecard
+      expect(controller.daily_scorecard).to eq the_daily_scorecard
     end
   end
 end
