@@ -33,7 +33,7 @@ class DailyScorecardsController < ApplicationController
     )
 
     start_date = date.to_date - 6
-    stop_date = date.to_date
+    stop_date = date.to_date - 1
     historical_cards = (start_date..stop_date).map { |date|
       daily_scorecards.new(date: date, meals_service: scoped_meals)
     }
