@@ -20,7 +20,7 @@ describe FoodsController do
 
   let(:current_user) {
     User.create!(email: 'testuser@example.com', password: 'testuser password').tap do |u|
-      u.confirm!
+      u.confirm
     end
   }
 
