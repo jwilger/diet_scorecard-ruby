@@ -1,7 +1,7 @@
 dependencies:
   pre:
     - pip install awsebcli
-    - eb init diet-scorecard
+    - eb init diet-scorecard -r us-west-2
 deployment:
   production:
     branch: master
