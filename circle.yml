@@ -1,0 +1,9 @@
+dependencies:
+  pre:
+    - pip install awsebcli
+    - eb init diet-scorecard
+deployment:
+  production:
+    branch: master
+    commands:
+      - eb deploy diet-scorecard-prod-1 --timeout 10
