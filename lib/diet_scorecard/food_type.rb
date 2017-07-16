@@ -81,8 +81,8 @@ module DietScorecard
     end
 
     ALL = [
-      FoodType.new(:fruits, score_table: [2,2,2,1,0,0]),
-      FoodType.new(:vegetables, score_table: [2,2,2,1,0,0]),
+      FoodType.new(:fruits, score_table: [2,2,2,1,0]),
+      FoodType.new(:vegetables, score_table: [2,2,2,1,0]),
       FoodType.new(:lean_meats, score_table: [2,2,1,0,0,-1]),
       FoodType.new(:nuts, score_table: [2,2,1,0,0,-1]),
       FoodType.new(:whole_grains, score_table: [2,2,1,0,0,-1]),
